@@ -4,7 +4,12 @@ const socketIo = require("socket.io");
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = socketIo(server, {
+  cors: {
+    origin: "*", // Allow all origins
+    methods: ["GET", "POST"],
+  },
+});
 
 const maxRoomSize = 4;
 let rooms = {};
