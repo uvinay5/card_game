@@ -1,0 +1,7 @@
+# Node artifact files
+node_modules/
+dist/
+vite.config/
+package-lock/
+.env
+config/
