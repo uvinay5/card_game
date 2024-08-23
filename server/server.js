@@ -16,28 +16,25 @@ const io = socketIo(server, {
 const maxRoomSize = 4;
 let rooms = {};
 
-function generateRoomId() {
-  return Math.floor(100000 + Math.random() * 900000).toString();
-}
-
 io.on("connection", (socket) => {
   console.log("A user connected:", socket.id);
 
-  socket.on("hostRoom", () => {
-    let room;
-
+  socket.on("hostRoom", ({ roomId, user }) => {
     do {
-      room = generateRoomId();
+      room = roomId;
     } while (rooms[room]);
 
     rooms[room] = 1;
     socket.join(room);
     console.log(`User ${socket.id} created and joined room: ${room}`);
-    socket.emit("roomHosted", room);
+    socket.emit(room, { id: rooms[roomId], ...user });
   });
 
-  socket.on("joinRoom", () => {
+  socket.on("joinRoom", ({ roomId }) => {
     let room;
+
+    if (rooms[roomId] < maxRoomSize) {
+    }
 
     for (let [roomId, size] of Object.entries(rooms)) {
       if (size < maxRoomSize) {
