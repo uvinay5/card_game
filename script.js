@@ -1,12 +1,13 @@
-let players = {
+// Player positions
+const players = {
   player1: 0,
   player2: 0,
   player3: 0,
   player4: 0,
 };
 
-const jumpTime = 1000; //1sec
-let longJumps = {
+// Long jump mappings (Snakes and Ladders)
+const longJumps = {
   12: 28,
   15: 47,
   49: 94,
@@ -16,84 +17,96 @@ let longJumps = {
   97: 65,
 };
 
-function loadCardItems() {
-  let indexArr = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1];
+// Constants
+const jumpTime = 1000; // 1 second
+
+// Load the game board
+function loadGameBoard() {
+  const indexArr = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1];
   let cardArr = [];
   let count = 1;
 
   indexArr.forEach((element) => {
-    let rowArr = [];
-    for (let index = 10; index >= 1; index--) {
+    const rowArr = [];
+    for (let i = 10; i >= 1; i--) {
       rowArr.push(count);
       count++;
     }
     cardArr = cardArr.concat(element ? rowArr : rowArr.reverse());
   });
 
-  cardArr.reverse().forEach((element, index) => {
-    let squareDiv = document.createElement("div");
+  cardArr.reverse().forEach((element) => {
+    const squareDiv = document.createElement("div");
     squareDiv.className = "square";
-    squareDiv.id = "square" + element.toString();
+    squareDiv.id = `square${element}`;
 
-    let innerDiv = document.createElement("div");
+    const innerDiv = document.createElement("div");
     innerDiv.textContent = element;
 
     squareDiv.appendChild(innerDiv);
     document.querySelector(".cardContainer").appendChild(squareDiv);
   });
-  setTimeout(() => {
-    randomMoveOnLoad();
-  }, 2000);
+
+  // Start random movement after the board loads
+  setTimeout(startRandomMovement, 2000);
 }
 
-function randomMoveOnLoad() {
-  var i = 1;
-  moveSteps(i);
+// Start random movement for players
+function startRandomMovement() {
+  movePlayer(1);
 }
 
-loadCardItems();
+// Move a player based on a random dice roll
+function movePlayer(playerIndex) {
+  if (playerIndex <= 4 && players[`player${playerIndex}`] < 100) {
+    const playerElement = document.getElementById(`player${playerIndex}`);
+    playerElement.style.animation = "";
 
-function moveSteps(index) {
-  if (index <= 4) {
-    if (players["player" + index] < 100) {
-      var player = document.getElementById("player" + index);
-      player.style.animation = "";
-      setTimeout(() => {
-        const steps = Math.floor(Math.random() * 5) + 1;
-        players["player" + index] = players["player" + index] + steps;
-        const nextSteps = getOffset(
-          document.getElementById("square" + players["player" + index])
+    setTimeout(() => {
+      const steps = Math.floor(Math.random() * 5) + 1;
+      players[`player${playerIndex}`] += steps;
+      const nextPosition = getElementOffset(
+        document.getElementById(`square${players[`player${playerIndex}`]}`)
+      );
+
+      animatePlayerJump(playerElement, nextPosition);
+
+      if (longJumps[players[`player${playerIndex}`]]) {
+        players[`player${playerIndex}`] =
+          longJumps[players[`player${playerIndex}`]];
+        const nextJumpPosition = getElementOffset(
+          document.getElementById(`square${players[`player${playerIndex}`]}`)
         );
 
-        addJumpAnimation(player, nextSteps);
-        if (longJumps[players["player" + index]]) {
-          players["player" + index] = longJumps[players["player" + index]];
-          const nextSteps = getOffset(
-            document.getElementById("square" + players["player" + index])
-          );
-          setTimeout(() => {
-            addJumpAnimation(player, nextSteps);
-            moveSteps(index + 1);
-          }, jumpTime);
-        } else moveSteps(index + 1);
-      }, jumpTime);
-    }
+        setTimeout(() => {
+          animatePlayerJump(playerElement, nextJumpPosition);
+          movePlayer(playerIndex + 1);
+        }, jumpTime);
+      } else {
+        movePlayer(playerIndex + 1);
+      }
+    }, jumpTime);
   } else {
-    randomMoveOnLoad();
+    startRandomMovement();
   }
 }
 
-function getOffset(element) {
-  let rect = element.getBoundingClientRect();
-  let win = element.ownerDocument.defaultView;
+// Get the offset of an element
+function getElementOffset(element) {
+  const rect = element.getBoundingClientRect();
+  const win = element.ownerDocument.defaultView;
   return {
     top: rect.top + win.pageYOffset + 5,
     left: rect.left + win.pageXOffset + 5,
   };
 }
 
-function addJumpAnimation(element, nextSteps) {
+// Animate the player's jump
+function animatePlayerJump(element, nextPosition) {
   element.style.animation = "onMove 1s linear";
-  element.style.top = nextSteps.top + "px";
-  element.style.left = nextSteps.left + "px";
+  element.style.top = `${nextPosition.top}px`;
+  element.style.left = `${nextPosition.left}px`;
 }
+
+// Load the game board on page load
+loadGameBoard();
