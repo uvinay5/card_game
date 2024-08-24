@@ -48,7 +48,7 @@ function loadGameBoard() {
   });
 
   // Start random movement after the board loads
-  setTimeout(startRandomMovement, 2000);
+  setTimeout(startRandomMovement, 500);
 }
 
 // Start random movement for players
