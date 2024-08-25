@@ -1,3 +1,4 @@
+@import url('https://fonts.cdnfonts.com/css/rockin-rocker');
 :root {
     --bgColor-primary: #b8b8b8;
     --color-primary: #000000;
@@ -111,34 +112,150 @@ body {
         #player4{
             background-color: yellow;
         }
-        .leftMenu{
+        .login-overlay{
+            position: fixed;
+            width: 0%;
             height: 100%;
-            position: relative;
-            background-color: red;
-            padding: 10px;
-            width: 350px;
-            margin-right: -500px;
-            animation: onloadGame .3s forwards 1.2s;
-            .game-header{
-                display: flex;
-                justify-content: center;
-                padding: 10px;
-                font-size: 25px;
-                font-weight: bold;
-            }
-            .game-setup{
-                padding: 10px;
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                div{
+            top: 0;
+            left: 0;
+            background-color: rgba(78, 78, 78, 0.5);
+            z-index: 15;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: onLogin .7s forwards 0s;
+            .login-model{
+                width: 400px;
+                height: 250px;
+                background-color: #ffffff;
+                border: 3px solid black;
+                box-shadow: 5px 5px 0px rgba(36, 36, 36, 0.877);
+                transform: scale(0);
+                animation: onloadLogin .7s forwards 0.2s;
+                .game-title{
+                    padding: 5px 20px;
                     display: flex;
-                    justify-content:space-between;
-                    .input-name{
-                        padding: 5px;
-                        width: 70%;
+                    justify-content: center;
+                    background-color: rgb(0, 0, 0);
+                    font-size: 17px;
+                    color: #ffffff;
+                    font-family: 'Rockin Rocker', sans-serif;
+                }
+                .game-setting{
+                    display: flex;
+                    flex-direction: row;
+                    position: relative;
+                    .player-name{
+                        margin: 20px;
+                        width: 100%;
+                        display: flex;
+                        gap: 25px;
+                        flex-direction: column;
+                        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                        display: none;
+                        input{
+                            padding: 8px 5px;
+                            border: none;
+                            outline: none;
+                            box-shadow: 3px 3px 0 #2c2c2c;
+                            border: 2px solid #000;
+                            font-family: 'Rockin Rocker', sans-serif;
+                            font-size: 11px;
+                            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                            &:hover,&:active{
+                            box-shadow: none;
+                            }
+                        }
+                        button{
+                            outline: none;
+                            box-shadow: 3px 3px 0 #2c2c2c;
+                            border: 2px solid #000;
+                            padding: 8px 5px;
+                            cursor: pointer;
+                            color: #222222;
+                            background-color: rgba(255, 99, 3, 0.804);
+                             font-family: 'Rockin Rocker', sans-serif;
+                             
+                            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                             &:hover,&:active{
+                                box-shadow: none;
+                                }
+                        }
+                        
+                    }
+                    .game-host{
+                        width: 100%;
+                        position: absolute;
+                        .game-tabs{
+                            border-bottom:2px solid rgb(31, 31, 31);
+                            display: flex;
+                            align-items: center;
+                            width: 100%;
+                            button{
+                                width: 100%;
+                                background-color: none;
+                                padding: 8px 10px;
+                                font-family: 'Rockin Rocker', sans-serif;
+                                font-size: 12px;
+                                border: none;
+                                cursor: pointer;
+                            }
+                        }
+                        .tabcontent {
+                            display: flex;
+                            flex-direction: column;
+                            gap:15px;
+                            padding: 10px;
+                            .join-code{
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 30px;
+                                font-family:  sans-serif;
+                                font-weight: bolder;
+                                letter-spacing: 8px;
+                                
+                            }
+                            button{
+                                width: 100%;
+                            outline: none;
+                            box-shadow: 3px 3px 0 #2c2c2c;
+                            border: 2px solid #000;
+                            padding: 8px 5px;
+                            cursor: pointer;
+                            color: #222222;
+                            background-color: rgba(255, 99, 3, 0.804);
+                            font-family: 'Rockin Rocker', sans-serif;
+                            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                             &:hover,&:active{
+                                box-shadow: none;
+                                }
+                            }
+                            input{
+                                padding: 8px 5px;
+                            border: none;
+                            outline: none;
+                            box-shadow: 3px 3px 0 #2c2c2c;
+                            border: 2px solid #000;
+                            font-size: 11px;
+                            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                            &:hover,&:active{
+                            box-shadow: none;
+                            }
+                            }
+                            #info-content{
+                                
+    text-align: end;
+    color: #c90000;
+                            }
+                        }
+                        #join{
+                            display: none;
+                        }
                     }
                 }
+                
+                
             }
         }
        
@@ -150,6 +267,18 @@ body {
         transform:  translateX(00px)  
     }
 }
+@keyframes onLogin {
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes onloadLogin {
+    100% {
+        transform: scale(1);
+    }
+}
+
 @keyframes onloadGame {
     100% {
        

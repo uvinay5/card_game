@@ -1,50 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">   
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-        <script type="module" src="./script.js"></script>
-        <link rel="stylesheet" href="sass/main.css" />
-        <title>Card Game</title>
-    </head>
-    <body> 
-        <div class="container">
-            <div class="cardFrame">
-                <div class="cardContainer">
-                    <img class="bgSnakeImage" alt="Snake BackGround" src="./assets/cardbackground.png"class="bgSnakeImage">
-                </div>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+      <script type="module" src="./script.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      
+      <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+      <link rel="stylesheet" href="sass/main.css" />
+      <title>Card Game</title>
+   </head>
+   <body>
+      <div class="container">
+         <div class="cardFrame">
+            <div class="cardContainer">
+               <img class="bgSnakeImage" alt="Snake BackGround" src="./assets/cardbackground.png"class="bgSnakeImage">
             </div>
-            <div class="player" id="player1">
-                <div></div>
+         </div>
+         <div class="player" id="player1">
+            <div></div>
+         </div>
+         <div class="player" id="player2">
+            <div></div>
+         </div>
+         <div class="player" id="player3">
+            <div></div>
+         </div>
+         <div class="player" id="player4">
+            <div></div>
+         </div>
+         <div class="login-overlay">
+            <div class="login-model">
+               <div class="game-title">
+                  Snake N Ladders
+               </div>
+               <div class="game-setting">
+                  <div class="player-name">
+                     <input placeholder="Player name/Choose random" class="input-name" id="player-name"/>
+                     <button class="random-name" onclick="pickRandomName()">Random <i class="fa-solid fa-shuffle"></i></button>
+                     <button class="next">Next <i class="fa-solid fa-arrow-right"></i></button>
+                  </div>
+                  <div class="game-host">
+                     <div class="game-tabs">
+                        <button class="host" onclick="gameType('host')">Host</button>
+                        <button class="join"  onclick="gameType('join')">Join</button>
+                     </div>
+                     <div id="host" class="tabcontent">
+                        <h3 class="join-text">Join the game with code:</h3>
+                        <div class="join-code" id="joincode"></div>
+                        <button class="start-game" id="startbutton">Start</button>
+                      </div>
+                      <div id="join" class="tabcontent">
+                        <input type="number" placeholder="Join Code" class="join-input" id="join-input" maxlength="6" pattern="\d{6}" required/>
+                        <button class="join-game" id="startbutton" onclick="joinGame()">Join</button>
+                        <div id="info-content"></div>
+                      </div>
+                  </div>
+               </div>
             </div>
-            <div class="player" id="player2">
-                <div></div>
-            </div>
-            <div class="player" id="player3">
-                <div></div>
-            </div>
-            <div class="player" id="player4">
-                <div></div>
-            </div>
-            <div class="leftMenu">
-                <div class="game-header">
-                    Snakes and ladders
-                </div>
-                <div class="game-setup">
-                    <div class="player-name">
-                        <input placeholder="Player name/Choose random" class="input-name"/>
-                        <button class="random-name">Random</button>
-                    </div>
-                    <div class="input-game-type">
-                        <button  class="host-game">Host Game</button>
-                        <button class="join-game">Join</button>
-                    </div>
-                </div>
-            </div>
-            <div class="screen-fill">
-            </div>
-        </div>
-    </body>
+         </div>
+      </div>
+      <script src="./player.js"></script>
+   </body>
 </html>

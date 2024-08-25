@@ -13,65 +13,41 @@ const io = socketIo(server, {
   },
 });
 
-const maxRoomSize = 4;
 let rooms = {};
 
 io.on("connection", (socket) => {
-  console.log("A user connected:", socket.id);
-
   socket.on("hostRoom", ({ roomId, user }) => {
-    do {
-      room = roomId;
-    } while (rooms[room]);
-
-    rooms[room] = 1;
-    socket.join(room);
-    console.log(`User ${socket.id} created and joined room: ${room}`);
-    socket.emit(room, { id: rooms[roomId], ...user });
+    console.log("Room Created " + roomId);
+    socket.join(roomId);
+    rooms[roomId] = [{ ...user, no: 1 }];
+    io.to(socket.id).emit("roomCreated", rooms[roomId], roomId);
   });
 
-  socket.on("joinRoom", ({ roomId }) => {
-    let room;
-
-    if (rooms[roomId] < maxRoomSize) {
-    }
-
-    for (let [roomId, size] of Object.entries(rooms)) {
-      if (size < maxRoomSize) {
-        room = roomId;
-        break;
-      }
-    }
-
-    if (room) {
-      socket.join(room);
-      rooms[room] += 1;
-      console.log(`User ${socket.id} joined room: ${room}`);
-      socket.emit("joinedRoom", room);
-      io.to(room).emit("message", `User ${socket.id} has joined the room.`);
-
-      if (rooms[room] === maxRoomSize) {
-        io.to(room).emit("roomFull", "The room is now full.");
-      }
-    } else {
-      socket.emit(
-        "noAvailableRoom",
-        "No available room to join. Try hosting a new one."
-      );
-    }
+  socket.on("start", ({ roomId }) => {
+    io.to(roomId).emit("start", "start");
   });
 
-  socket.on("disconnect", () => {
-    for (let [roomId, size] of Object.entries(rooms)) {
-      if (io.sockets.adapter.rooms.get(roomId)?.has(socket.id)) {
-        rooms[roomId] -= 1;
-        if (rooms[roomId] === 0) {
-          delete rooms[roomId];
-        }
-        console.log(`User ${socket.id} left room: ${roomId}`);
-        break;
-      }
-    }
+  socket.on("play", ({ roomId, no }) => {
+    io.to(roomId).emit("move", no);
+  });
+
+  socket.on("position", ({ roomId, no, position }) => {
+    io.to(roomId).emit("moveTo", { no, position });
+  });
+
+  socket.on("joinRoom", ({ roomId, user }) => {
+    const room = io.sockets.adapter.rooms.get(roomId);
+    if (room && room.size > 0) {
+      if (rooms[roomId].length <= 4) {
+        if (!user.name) user.name = "Player " + (rooms[roomId].length + 1);
+        socket.join(roomId);
+        rooms[roomId] = [
+          ...rooms[roomId],
+          { ...user, no: rooms[roomId].length },
+        ];
+        io.to(roomId).emit("userJoined", rooms[roomId]);
+      } else io.to(socket.id).emit("error", "Room is full");
+    } else io.to(socket.id).emit("error", "Room does not exist");
   });
 });
 

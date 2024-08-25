@@ -14,21 +14,25 @@
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <script>
         // Establish a connection to the server
- 
-        const socket = io('localhost:3000');
-        var roomId=Math.floor(100000 + Math.random() * 900000).toString();
         var name="";
-        var user={name:name?name:"Player 1 (Host)"}
-
-
-        socket.emit('hostRoom', { roomId ,user});
-
-        // Listen for an event
-        socket.on(roomId, (data) => {
-            console.log('Received message:', data);
-        });
-
-        
+        const socket = io("localhost:3000");
+        function hostGame()
+        {
+            debugger
+            var roomId=Math.floor(100000 + Math.random() * 900000).toString();
+            var user={name: name? name+" Host":"Player 1"+" Host" }
+            socket.emit('hostRoom', { roomId ,user});
+            socket.on("roomCreated", (data) => {
+                console.log('Room Created :', data);
+            });
+            socket.on("userJoined", (data) => {
+                console.log('New User Joined :', data);
+            });
+            socket.on("error", (data) => {
+                console.log('Error', data);
+            });
+        }
+        hostGame()
     </script>
 </body>
 </html>

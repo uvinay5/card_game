@@ -1,3 +1,4 @@
+@import url("https://fonts.cdnfonts.com/css/rockin-rocker");
 :root {
   --bgColor-primary: #b8b8b8;
   --color-primary: #000000;
@@ -156,31 +157,145 @@ body .container #player4 {
   background-color: yellow;
 }
 
-body .container .leftMenu {
+body .container .login-overlay {
+  position: fixed;
+  width: 0%;
   height: 100%;
-  position: relative;
-  background-color: red;
-  padding: 10px;
-  width: 350px;
-  margin-right: -500px;
-  -webkit-animation: onloadGame .3s forwards 1.2s;
-          animation: onloadGame .3s forwards 1.2s;
-}
-
-body .container .leftMenu .game-header {
+  top: 0;
+  left: 0;
+  background-color: rgba(78, 78, 78, 0.5);
+  z-index: 15;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: 10px;
-  font-size: 25px;
-  font-weight: bold;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-animation: onLogin .7s forwards 0s;
+          animation: onLogin .7s forwards 0s;
 }
 
-body .container .leftMenu .game-setup {
-  padding: 10px;
+body .container .login-overlay .login-model {
+  width: 400px;
+  height: 250px;
+  background-color: #ffffff;
+  border: 3px solid black;
+  -webkit-box-shadow: 5px 5px 0px rgba(36, 36, 36, 0.877);
+          box-shadow: 5px 5px 0px rgba(36, 36, 36, 0.877);
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-animation: onloadLogin .7s forwards 0.2s;
+          animation: onloadLogin .7s forwards 0.2s;
+}
+
+body .container .login-overlay .login-model .game-title {
+  padding: 5px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: black;
+  font-size: 17px;
+  color: #ffffff;
+  font-family: 'Rockin Rocker', sans-serif;
+}
+
+body .container .login-overlay .login-model .game-setting {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  position: relative;
+}
+
+body .container .login-overlay .login-model .game-setting .player-name {
+  margin: 20px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 25px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: none;
+}
+
+body .container .login-overlay .login-model .game-setting .player-name input {
+  padding: 8px 5px;
+  border: none;
+  outline: none;
+  -webkit-box-shadow: 3px 3px 0 #2c2c2c;
+          box-shadow: 3px 3px 0 #2c2c2c;
+  border: 2px solid #000;
+  font-family: 'Rockin Rocker', sans-serif;
+  font-size: 11px;
+  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+body .container .login-overlay .login-model .game-setting .player-name input:hover, body .container .login-overlay .login-model .game-setting .player-name input:active {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+body .container .login-overlay .login-model .game-setting .player-name button {
+  outline: none;
+  -webkit-box-shadow: 3px 3px 0 #2c2c2c;
+          box-shadow: 3px 3px 0 #2c2c2c;
+  border: 2px solid #000;
+  padding: 8px 5px;
+  cursor: pointer;
+  color: #222222;
+  background-color: rgba(255, 99, 3, 0.804);
+  font-family: 'Rockin Rocker', sans-serif;
+  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+body .container .login-overlay .login-model .game-setting .player-name button:hover, body .container .login-overlay .login-model .game-setting .player-name button:active {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+body .container .login-overlay .login-model .game-setting .game-host {
+  width: 100%;
+  position: absolute;
+}
+
+body .container .login-overlay .login-model .game-setting .game-host .game-tabs {
+  border-bottom: 2px solid #1f1f1f;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+body .container .login-overlay .login-model .game-setting .game-host .game-tabs button {
+  width: 100%;
+  background-color: none;
+  padding: 8px 10px;
+  font-family: 'Rockin Rocker', sans-serif;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+body .container .login-overlay .login-model .game-setting .game-host .tabcontent {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -188,21 +303,70 @@ body .container .leftMenu .game-setup {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 10px;
+  gap: 15px;
+  padding: 10px;
 }
 
-body .container .leftMenu .game-setup div {
+body .container .login-overlay .login-model .game-setting .game-host .tabcontent .join-code {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 30px;
+  font-family: sans-serif;
+  font-weight: bolder;
+  letter-spacing: 8px;
 }
 
-body .container .leftMenu .game-setup div .input-name {
-  padding: 5px;
-  width: 70%;
+body .container .login-overlay .login-model .game-setting .game-host .tabcontent button {
+  width: 100%;
+  outline: none;
+  -webkit-box-shadow: 3px 3px 0 #2c2c2c;
+          box-shadow: 3px 3px 0 #2c2c2c;
+  border: 2px solid #000;
+  padding: 8px 5px;
+  cursor: pointer;
+  color: #222222;
+  background-color: rgba(255, 99, 3, 0.804);
+  font-family: 'Rockin Rocker', sans-serif;
+  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+body .container .login-overlay .login-model .game-setting .game-host .tabcontent button:hover, body .container .login-overlay .login-model .game-setting .game-host .tabcontent button:active {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+body .container .login-overlay .login-model .game-setting .game-host .tabcontent input {
+  padding: 8px 5px;
+  border: none;
+  outline: none;
+  -webkit-box-shadow: 3px 3px 0 #2c2c2c;
+          box-shadow: 3px 3px 0 #2c2c2c;
+  border: 2px solid #000;
+  font-size: 11px;
+  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+body .container .login-overlay .login-model .game-setting .game-host .tabcontent input:hover, body .container .login-overlay .login-model .game-setting .game-host .tabcontent input:active {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+body .container .login-overlay .login-model .game-setting .game-host .tabcontent #info-content {
+  text-align: end;
+  color: #c90000;
+}
+
+body .container .login-overlay .login-model .game-setting .game-host #join {
+  display: none;
 }
 
 @-webkit-keyframes onloadAnim {
@@ -218,6 +382,32 @@ body .container .leftMenu .game-setup div .input-name {
     pointer-events: none;
     -webkit-transform: translateX(0px);
             transform: translateX(0px);
+  }
+}
+
+@-webkit-keyframes onLogin {
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes onLogin {
+  100% {
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes onloadLogin {
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes onloadLogin {
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
 }
 

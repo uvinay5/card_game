@@ -13,24 +13,25 @@
     <!-- Include Socket.IO from CDN -->
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <script>
+        var name=""
         // Establish a connection to the server
-
-        var url_string = window.location.href; // www.test.com?filename=test
-        var url = new URL(url_string);
-        var paramValue = url.searchParams.get("join");
- 
-        const socket = io('localhost:3000');
-        var roomId=paramValue
-       
-
-
-        socket.emit('joinRoom', { roomId });
-
-        // Listen for an event
-        socket.on(roomId, (data) => {
-            console.log('Received message:', data);
-        });
-
+        function joinRoom(){
+            debugger
+            const socket = io('localhost:3000');
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var user={name: name? name:""}
+            var paramValue = url.searchParams.get("join");
+            var roomId=paramValue;
+            socket.emit('joinRoom', { roomId,user});
+            socket.on("userJoined", (data) => {
+                console.log('New User Joined :', data);
+            });
+            socket.on("error", (data) => {
+                console.log('Error', data);
+            });
+        }
+        joinRoom()
         
     </script>
 </body>
