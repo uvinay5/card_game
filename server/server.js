@@ -20,7 +20,8 @@ io.on("connection", (socket) => {
     console.log("Room Created " + roomId);
     socket.join(roomId);
     rooms[roomId] = [{ ...user, no: 1 }];
-    io.to(socket.id).emit("roomCreated", rooms[roomId], roomId);
+    // io.to(socket.id).emit("roomCreated", rooms[roomId], roomId);
+    io.to(roomId).emit("userJoined", rooms[roomId]);
   });
 
   socket.on("start", ({ roomId }) => {
@@ -38,12 +39,12 @@ io.on("connection", (socket) => {
   socket.on("joinRoom", ({ roomId, user }) => {
     const room = io.sockets.adapter.rooms.get(roomId);
     if (room && room.size > 0) {
-      if (rooms[roomId].length <= 4) {
+      if (rooms[roomId].length < 4) {
         if (!user.name) user.name = "Player " + (rooms[roomId].length + 1);
         socket.join(roomId);
         rooms[roomId] = [
           ...rooms[roomId],
-          { ...user, no: rooms[roomId].length },
+          { ...user, no: rooms[roomId].length + 1 },
         ];
         io.to(roomId).emit("userJoined", rooms[roomId]);
       } else io.to(socket.id).emit("error", "Room is full");

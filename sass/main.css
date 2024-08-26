@@ -1,9 +1,9 @@
 @import url("https://fonts.cdnfonts.com/css/rockin-rocker");
 :root {
-  --bgColor-primary: #b8b8b8;
-  --color-primary: #000000;
-  --max-width: 120rem;
-  --playArea-color: #ffffff;
+  --player-color-1: rgb(255, 55, 55);
+  --player-color-2:rgb(0, 190, 0);
+  --player-color-3:rgb(0, 136, 255);
+  --player-color-4:rgb(255, 247, 0);
 }
 
 * {
@@ -22,7 +22,7 @@ html {
 body {
   background-color: #ffffff;
   overflow: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1.6rem;
   line-height: 1.6;
   background-image: url(../assets/backgroupImage.svg);
@@ -63,8 +63,8 @@ body .container .cardFrame {
   -webkit-transform: translateX(-200%);
           transform: translateX(-200%);
   pointer-events: none;
-  -webkit-animation: onloadAnim .7s forwards .5s;
-          animation: onloadAnim .7s forwards .5s;
+  -webkit-animation: onloadAnim 0.7s forwards 0.5s;
+          animation: onloadAnim 0.7s forwards 0.5s;
   -webkit-box-shadow: black 0px 2px 4px, rgba(0, 0, 0, 0.6) 0px 7px 13px -3px, rgba(0, 0, 0, 0.7) 0px -3px 3px inset;
           box-shadow: black 0px 2px 4px, rgba(0, 0, 0, 0.6) 0px 7px 13px -3px, rgba(0, 0, 0, 0.7) 0px -3px 3px inset;
 }
@@ -93,8 +93,8 @@ body .container .cardFrame .cardContainer .bgSnakeImage {
           transform: scale(0);
   -webkit-filter: drop-shadow(2px 1px 1px #6d6d6d);
           filter: drop-shadow(2px 1px 1px #6d6d6d);
-  -webkit-animation: snakeAnim .4s forwards 1s;
-          animation: snakeAnim .4s forwards 1s;
+  -webkit-animation: snakeAnim 0.4s forwards 1s;
+          animation: snakeAnim 0.4s forwards 1s;
 }
 
 body .container .cardFrame .cardContainer .square {
@@ -142,19 +142,19 @@ body .container .player div {
 }
 
 body .container #player1 {
-  background-color: #ff3737;
+  background-color: var(--player-color-1);
 }
 
 body .container #player2 {
-  background-color: #00be00;
+  background-color: var(--player-color-2);
 }
 
 body .container #player3 {
-  background-color: #0088ff;
+  background-color: var(--player-color-3);
 }
 
 body .container #player4 {
-  background-color: yellow;
+  background-color: var(--player-color-4);
 }
 
 body .container .login-overlay {
@@ -174,11 +174,12 @@ body .container .login-overlay {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-animation: onLogin .7s forwards 0s;
-          animation: onLogin .7s forwards 0s;
+  -webkit-animation: onLogin 0.7s forwards 2s;
+          animation: onLogin 0.7s forwards 2s;
 }
 
 body .container .login-overlay .login-model {
+  overflow: hidden;
   width: 400px;
   height: 250px;
   background-color: #ffffff;
@@ -187,8 +188,8 @@ body .container .login-overlay .login-model {
           box-shadow: 5px 5px 0px rgba(36, 36, 36, 0.877);
   -webkit-transform: scale(0);
           transform: scale(0);
-  -webkit-animation: onloadLogin .7s forwards 0.2s;
-          animation: onloadLogin .7s forwards 0.2s;
+  -webkit-animation: onloadLogin 0.7s forwards 2.2s;
+          animation: onloadLogin 0.7s forwards 2.2s;
 }
 
 body .container .login-overlay .login-model .game-title {
@@ -199,10 +200,10 @@ body .container .login-overlay .login-model .game-title {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  background-color: black;
+  background-color: #1a1a1a;
   font-size: 17px;
   color: #ffffff;
-  font-family: 'Rockin Rocker', sans-serif;
+  font-family: "Rockin Rocker", sans-serif;
 }
 
 body .container .login-overlay .login-model .game-setting {
@@ -216,7 +217,7 @@ body .container .login-overlay .login-model .game-setting {
   position: relative;
 }
 
-body .container .login-overlay .login-model .game-setting .player-name {
+body .container .login-overlay .login-model .game-setting .player-name-input {
   margin: 20px;
   width: 100%;
   display: -webkit-box;
@@ -227,30 +228,26 @@ body .container .login-overlay .login-model .game-setting .player-name {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  display: none;
 }
 
-body .container .login-overlay .login-model .game-setting .player-name input {
+body .container .login-overlay .login-model .game-setting .player-name-input input {
   padding: 8px 5px;
   border: none;
   outline: none;
   -webkit-box-shadow: 3px 3px 0 #2c2c2c;
           box-shadow: 3px 3px 0 #2c2c2c;
   border: 2px solid #000;
-  font-family: 'Rockin Rocker', sans-serif;
-  font-size: 11px;
+  font-size: 18px;
   -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-body .container .login-overlay .login-model .game-setting .player-name input:hover, body .container .login-overlay .login-model .game-setting .player-name input:active {
+body .container .login-overlay .login-model .game-setting .player-name-input input:hover, body .container .login-overlay .login-model .game-setting .player-name-input input:active {
   -webkit-box-shadow: none;
           box-shadow: none;
 }
 
-body .container .login-overlay .login-model .game-setting .player-name button {
+body .container .login-overlay .login-model .game-setting .player-name-input button {
   outline: none;
   -webkit-box-shadow: 3px 3px 0 #2c2c2c;
           box-shadow: 3px 3px 0 #2c2c2c;
@@ -259,19 +256,25 @@ body .container .login-overlay .login-model .game-setting .player-name button {
   cursor: pointer;
   color: #222222;
   background-color: rgba(255, 99, 3, 0.804);
-  font-family: 'Rockin Rocker', sans-serif;
+  font-family: "Rockin Rocker", sans-serif;
   -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-body .container .login-overlay .login-model .game-setting .player-name button:hover, body .container .login-overlay .login-model .game-setting .player-name button:active {
+body .container .login-overlay .login-model .game-setting .player-name-input button:hover, body .container .login-overlay .login-model .game-setting .player-name-input button:active {
   -webkit-box-shadow: none;
           box-shadow: none;
 }
 
 body .container .login-overlay .login-model .game-setting .game-host {
+  height: 100%;
+  background-color: #ffffff;
   width: 100%;
   position: absolute;
+  -webkit-transform: translateX(105%);
+          transform: translateX(105%);
+  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 body .container .login-overlay .login-model .game-setting .game-host .game-tabs {
@@ -289,7 +292,7 @@ body .container .login-overlay .login-model .game-setting .game-host .game-tabs 
   width: 100%;
   background-color: none;
   padding: 8px 10px;
-  font-family: 'Rockin Rocker', sans-serif;
+  font-family: "Rockin Rocker", sans-serif;
   font-size: 12px;
   border: none;
   cursor: pointer;
@@ -333,7 +336,7 @@ body .container .login-overlay .login-model .game-setting .game-host .tabcontent
   cursor: pointer;
   color: #222222;
   background-color: rgba(255, 99, 3, 0.804);
-  font-family: 'Rockin Rocker', sans-serif;
+  font-family: "Rockin Rocker", sans-serif;
   -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -350,7 +353,7 @@ body .container .login-overlay .login-model .game-setting .game-host .tabcontent
   -webkit-box-shadow: 3px 3px 0 #2c2c2c;
           box-shadow: 3px 3px 0 #2c2c2c;
   border: 2px solid #000;
-  font-size: 11px;
+  font-size: 18px;
   -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -367,6 +370,87 @@ body .container .login-overlay .login-model .game-setting .game-host .tabcontent
 
 body .container .login-overlay .login-model .game-setting .game-host #join {
   display: none;
+}
+
+body .container .scoreboard {
+  z-index: 20;
+  width: 350px;
+  height: 99.5vh;
+  background-color: #fff;
+  border: 3px solid black;
+  margin-right: -400px;
+  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+body .container .scoreboard .game-title {
+  padding: 5px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #1b1b1b;
+  font-size: 17px;
+  color: #ffffff;
+  font-family: "Rockin Rocker", sans-serif;
+}
+
+body .container .scoreboard .scorecontent {
+  padding: 10px;
+  font-family: "Rockin Rocker", sans-serif;
+}
+
+body .container .scoreboard .players-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body .container .scoreboard .players-list .player-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  font-family: sans-serif;
+  border: 2px solid #626262;
+  width: 100%;
+  -webkit-box-shadow: 3px 3px 0px rgba(36, 36, 36, 0.877);
+          box-shadow: 3px 3px 0px rgba(36, 36, 36, 0.877);
+}
+
+body .container .scoreboard .players-list .player-info .player-number {
+  font-family: sans-serif;
+  padding: 10px 15px;
+  color: white;
+  font-weight: bold;
+}
+
+body .container .scoreboard .players-list .player-info #playerColor1 {
+  background-color: var(--player-color-1);
+}
+
+body .container .scoreboard .players-list .player-info #playerColor2 {
+  background-color: var(--player-color-2);
+}
+
+body .container .scoreboard .players-list .player-info #playerColor3 {
+  background-color: var(--player-color-3);
+}
+
+body .container .scoreboard .players-list .player-info #playerColor4 {
+  background-color: var(--player-color-4);
+}
+
+body .container .scoreboard .players-list .player-info .player-name {
+  padding: 10px 0px;
+  font-weight: bold;
 }
 
 @-webkit-keyframes onloadAnim {
@@ -447,8 +531,8 @@ body .container .login-overlay .login-model .game-setting .game-host #join {
   70% {
     -webkit-transform: scale(1.3);
             transform: scale(1.3);
-    -webkit-box-shadow: #00000059 -5px -5px 1vw 0px inset, #0000008c 8px 4px 1vw 2px,#0000008c 16px 16px 5vw 5px;
-            box-shadow: #00000059 -5px -5px 1vw 0px inset, #0000008c 8px 4px 1vw 2px,#0000008c 16px 16px 5vw 5px;
+    -webkit-box-shadow: #00000059 -5px -5px 1vw 0px inset, #0000008c 8px 4px 1vw 2px, #0000008c 16px 16px 5vw 5px;
+            box-shadow: #00000059 -5px -5px 1vw 0px inset, #0000008c 8px 4px 1vw 2px, #0000008c 16px 16px 5vw 5px;
   }
   100% {
     -webkit-transform: scale(1);
@@ -468,8 +552,8 @@ body .container .login-overlay .login-model .game-setting .game-host #join {
   70% {
     -webkit-transform: scale(1.3);
             transform: scale(1.3);
-    -webkit-box-shadow: #00000059 -5px -5px 1vw 0px inset, #0000008c 8px 4px 1vw 2px,#0000008c 16px 16px 5vw 5px;
-            box-shadow: #00000059 -5px -5px 1vw 0px inset, #0000008c 8px 4px 1vw 2px,#0000008c 16px 16px 5vw 5px;
+    -webkit-box-shadow: #00000059 -5px -5px 1vw 0px inset, #0000008c 8px 4px 1vw 2px, #0000008c 16px 16px 5vw 5px;
+            box-shadow: #00000059 -5px -5px 1vw 0px inset, #0000008c 8px 4px 1vw 2px, #0000008c 16px 16px 5vw 5px;
   }
   100% {
     -webkit-transform: scale(1);

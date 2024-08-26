@@ -37,12 +37,12 @@
                   Snake N Ladders
                </div>
                <div class="game-setting">
-                  <div class="player-name">
-                     <input placeholder="Player name/Choose random" class="input-name" id="player-name"/>
+                  <div class="player-name-input">
+                     <input placeholder="Player name/Choose random" class="input-name" id="player-name-input"/>
                      <button class="random-name" onclick="pickRandomName()">Random <i class="fa-solid fa-shuffle"></i></button>
-                     <button class="next">Next <i class="fa-solid fa-arrow-right"></i></button>
+                     <button class="next" onclick="showGameSettingScreen()">Next <i class="fa-solid fa-arrow-right"></i></button>
                   </div>
-                  <div class="game-host">
+                  <div class="game-host" id="host-game">
                      <div class="game-tabs">
                         <button class="host" onclick="gameType('host')">Host</button>
                         <button class="join"  onclick="gameType('join')">Join</button>
@@ -60,6 +60,19 @@
                   </div>
                </div>
             </div>
+         </div>
+         <div class="scoreboard" id="scoreboard">
+            <div class="game-title">
+                Snake N Ladders
+             </div>
+             <div class="scorecontent">
+                <div>
+                    Players
+                </div>
+                <div class="players-list" id="players-list">
+                    
+                </div>
+             </div>
          </div>
       </div>
       <script src="./player.js"></script>

@@ -1,5 +1,5 @@
 let roomId = "";
-
+const socket = io("https://breezy-rubetta-vinayu-c093cb29.koyeb.app/");
 function getRandomName() {
   const adjectives = [
     "Wacky",
@@ -51,16 +51,19 @@ function getRandomName() {
 }
 
 function pickRandomName() {
-  document.getElementById(`player-name`).value = getRandomName();
+  document.getElementById(`player-name-input`).value = getRandomName();
+}
+function showGameSettingScreen() {
+  gameType("join");
+  addPlayers();
+  document.getElementById("host-game").style.transform = "translateX(0%)";
 }
 
 function gameType(type) {
-  const name = "document.getElementById(`player-name`).value";
+  const name = document.getElementById(`player-name-input`).value;
   if (type == "host") {
     if (!roomId) {
       roomId = Math.floor(100000 + Math.random() * 900000).toString();
-
-      const socket = io("localhost:3000");
       var user = { name: name ? name + " Host" : "Player 1" + " Host" };
       document.getElementById(`joincode`).innerHTML = roomId;
       socket.emit("hostRoom", { roomId, user });
@@ -71,19 +74,7 @@ function gameType(type) {
     document.getElementById("host").style.display = "none";
     document.getElementById("join").style.display = "flex";
   }
-
-  // tabcontent = document.getElementsByClassName("tabcontent");
-  // for (i = 0; i < tabcontent.length; i++) {
-  //   tabcontent[i].style.display = "none";
-  // }
-  // tablinks = document.getElementsByClassName("tablinks");
-  // for (i = 0; i < tablinks.length; i++) {
-  //   tablinks[i].className = tablinks[i].className.replace(" active", "");
-  // }
-  // document.getElementById(cityName).style.display = "block";
-  // evt.currentTarget.className += " active";
 }
-gameType("host");
 
 function joinGame() {
   const joincode = document.getElementById(`join-input`).value;
@@ -93,6 +84,39 @@ function joinGame() {
     infoElement.innerHTML = "Please enter a valid 6-digit code.";
     infoElement.style.display = "block";
   } else {
+    const name = document.getElementById(`player-name-input`).value;
+    const user = { name: name ? name : "" };
+    socket.emit("joinRoom", { roomId: joincode, user });
     infoElement.style.display = "none";
   }
+}
+
+function addPlayers() {
+  socket.on("userJoined", (data) => {
+    console.log("New User Joined :", data);
+    if (data && data.length > 0) {
+      document.getElementById("scoreboard").style.marginRight = "00px";
+      const playerList = document.querySelector("#players-list");
+      playerList.innerHTML = "";
+      for (let i = 0; i < data.length; i++) {
+        const player = document.createElement("div");
+        player.className = "player-info";
+        player.id = data[i].no;
+        player.innerHTML =
+          "<div class='player-number' id='playerColor" +
+          data[i].no +
+          "'>" +
+          data[i].no +
+          "</div><div class='player-name'>" +
+          data[i].name +
+          "</div>";
+        playerList.appendChild(player);
+      }
+    }
+  });
+  socket.on("error", (data) => {
+    const infoElement = document.getElementById("info-content");
+    infoElement.innerHTML = data;
+    infoElement.style.display = "block";
+  });
 }
